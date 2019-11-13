@@ -1,5 +1,5 @@
 # HTSmetadata
-Introspect a High Throughput Sequenceing set of files for samples and generate tsv and json datasets 
+Introspect a High Throughput Sequenceing (HTS) set of files and generate tsv and json datasets 
 # Usage 
 ## metadataFromHTSfileOfFiles.py [-h] [-i [I]] [-l [L]] [-t [T]] [-j [J]]
 
