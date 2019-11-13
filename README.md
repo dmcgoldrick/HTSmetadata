@@ -3,7 +3,7 @@ Introspect a High Throughput Sequenceing (HTS) set of files and generate tsv and
 # Usage 
 ## metadataFromHTSfileOfFiles.py [-h] [-i [I]] [-l [L]] [-t [T]] [-j [J]]
 
-### Collects metadata from a file that contains paths of bam files one path perline.
+### Collects a dataset of metadata directed by a file that contains paths of hts(bam/cram) files one path perline.
 
 ## optional arguments:
 ##  -h, --help  show this help message and exit
