@@ -176,7 +176,7 @@ class htsFile(pysam.libcalignmentfile.AlignmentFile):
             return target
     def bwa_version(self):
         headerObj=self.header.to_dict()
-	version='.'
+        version='.'
         for pg in headerObj['PG']:
             if ((re.match(re.compile('bwa'),pg['ID']) is not None) | (re.match(re.compile('STAR'),pg['ID']) is not None:)):
                 try:
