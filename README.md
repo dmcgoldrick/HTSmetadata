@@ -21,30 +21,25 @@ python metadataFromHTSfileOfFiles.py -i ~/tmp/paths.txt -t ~/tmp/test.tsv -j ~/t
 ## python 3+
 numpy,scipy,pysam,pandas,os,re,math,datetime,sys,argparse,types
 ## htslib v1.9+, samtools v1.9+
-# Example output
+# Output file key:
     column 1: count	
     column 2: group
     column 3: limsID
     column 4: Date
-    column 5: flowcell_suffix
-    column 6: target
-    column 7: sequencer (type not id)	
-    column 8: aligner_version
-    column 9: read_len
-    column 10: sample_sex
-    column 11: centers
-    column 12: libraries
-    column 13: samples
-    column 14: assembly (requires AS tag)
-  
-    1	testCmd	102859	2014-08-09T01:20:44-0700	['ACXX', 'ADXX']	nimblegen_solution_V2refseq_2010	['HiSeq_2000', 'HiSeq_2500']	0.7.10-r789	50	F	['University_of_Washington_Genome_Sciences']	['27-27365_B:2']	['102859']	hs37d5
+    column 5: flowcell_full
+    column 6: flowcell_suffix
+    column 7: target
+    column 8: sequencer (type not id)	
+    column 9: aligner_version
+    column 10: read_len
+    column 11: sample_sex
+    column 12: centers
+    column 13: libraries
+    column 14: samples
+    column 15: assembly (requires AS tag)
 
-    2	testCmd	112610	2014-08-27T08:47:52-0700	['ACXX', 'ADXX']	nimblegen_solution_V2refseq_2010	['HiSeq_2000', 'HiSeq_2500']	0.7.10-r789	50	F	['University_of_Washington_Genome_Sciences']	['27-28750_F:10', '27-28697_F:10']	['112610']	hs37d5
-
-    3	testCmd	112625	2014-10-17T03:37:37-0700	['ANXX']	nimblegen_solution_V2refseq_2010	['HiSeq_2500']	0.7.10-r789	50	F	['University_of_Washington_Genome_Sciences']	['27-30015_B:5', '27-30021_B:5']	['112625']	hs37d5
-
-# Flowcell Suffix to Machine Dictionary
-## Machines are identified by mapping the suffix of the flowcell as follows:
+# Flowcell Suffix to Machine Dictionary:
+## (Machines are identified by mapping the suffix of the flowcell)
     'MiSeq': 'A[AZ]XX$',
     'HiSeq_2000': 'A[BC]XX$',
     'HiSeq_2500': 'A[DN]XX$',
