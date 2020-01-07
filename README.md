@@ -28,14 +28,14 @@ numpy,scipy,pysam,pandas,os,re,math,datetime,sys,argparse,types
     column 4: Date
     column 5: flowcell_suffix
     column 6: target
-    column 7: sequencer	
+    column 7: sequencer (type not id)	
     column 8: aligner_version
     column 9: read_len
     column 10: sample_sex
     column 11: centers
     column 12: libraries
     column 13: samples
-    column 14: assembly
+    column 14: assembly (requires AS tag)
   
     1	testCmd	102859	2014-08-09T01:20:44-0700	['ACXX', 'ADXX']	nimblegen_solution_V2refseq_2010	['HiSeq_2000', 'HiSeq_2500']	0.7.10-r789	50	F	['University_of_Washington_Genome_Sciences']	['27-27365_B:2']	['102859']	hs37d5
 
