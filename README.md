@@ -42,3 +42,14 @@ numpy,scipy,pysam,pandas,os,re,math,datetime,sys,argparse,types
 2	testCmd	112610	2014-08-27T08:47:52-0700	['ACXX', 'ADXX']	nimblegen_solution_V2refseq_2010	['HiSeq_2000', 'HiSeq_2500']	0.7.10-r789	50	F	['University_of_Washington_Genome_Sciences']	['27-28750_F:10', '27-28697_F:10']	['112610']	hs37d5
 
 3	testCmd	112625	2014-10-17T03:37:37-0700	['ANXX']	nimblegen_solution_V2refseq_2010	['HiSeq_2500']	0.7.10-r789	50	F	['University_of_Washington_Genome_Sciences']	['27-30015_B:5', '27-30021_B:5']	['112625']	hs37d5
+
+# Flowcell Suffix to Machine Dictionary
+## Machines are identified by mapping the suffix of the flowcell as follows:
+    'MiSeq': 'A[AZ]XX$',
+    'HiSeq_2000': 'A[BC]XX$',
+    'HiSeq_2500': 'A[DN]XX$',
+    'HiSeq_4000': 'B[BC]X[XY]$',
+    'HiSeq_X': 'ALXX$|CCX[2XY]$',
+    'NextSeq': 'AFX[XY]$|BGX[0-9A-Z]$',
+    'NovaSeq': 'D[A-Z]XX$'
+
