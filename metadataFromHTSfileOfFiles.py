@@ -49,10 +49,14 @@ class htsFile(pysam.libcalignmentfile.AlignmentFile):
         headerObj=self.header.to_dict()
         assembly='.'
         try:
-            seqs=self.contigs()
-            assembly=seqs.pop()
+               assembly=headerObj['AS']
         except:
-            pass
+               seqs=self.contigs()
+               if assembly=='.':
+                  seqs=self.contigs()
+                  x=seqs.pop()
+               if re.search('GRC|hg',x) is not None:
+                  assembly=x  
         return assembly
     def centers(self):
         headerObj=self.header.to_dict()
@@ -137,25 +141,40 @@ class htsFile(pysam.libcalignmentfile.AlignmentFile):
         return (sx,X,Y,logR)
     def idxStats(self):
         return self.get_index_statistics()
-    def flowCells(self):       
+    def flowCellsuffix(self):
         headerObj=self.header.to_dict()
         suffix=[]
         for rg in headerObj['RG']:
             suff=rg['ID'].split('.')[0][-4:]
             for k2 in sequencer_re_dict:
                 regExp=sequencer_re_dict[k2]
-                if re.search(regExp,suff) is not None: 
+                if re.search(regExp,suff) is not None:
                     suffix.append(suff[-4:])
+        suffix=list(set(suffix))
+        if len(suffix)==0:
+           suffix='.'
+        return suffix
+    def flowCell(self):       
+        headerObj=self.header.to_dict()
+        suffix=[]
+        for rg in headerObj['RG']:
+            suff=rg['ID']
+            suffix.append(suff)
         suffix=list(set(suffix))
         return suffix   
     def sequencers(self):
         sequencer=[]
-        suffixes=self.flowCells()
-        for suff in suffixes:
- #           print(suff)
-            seqncr=flowcell2sequencer(suff)
-            sequencer.extend(seqncr)
+        try:
+            suffixes=self.flowCellsuffix()
+            for suff in suffixes:
+#                print(suff)
+                seqncr=flowcell2sequencer(suff)
+                sequencer.extend(seqncr)
+        except:
+            pass
         sequencer=list(set(sequencer))
+        if len(sequencer)==0:
+       	    sequencer='.'
         return sequencer
     def target(self):
         headerObj=self.header.to_dict()
@@ -174,7 +193,7 @@ class htsFile(pysam.libcalignmentfile.AlignmentFile):
                 except:
                     target='.'
             return target
-    def bwa_version(self):
+    def aligner_version(self):
         headerObj=self.header.to_dict()
         version='.'
         for pg in headerObj['PG']:
@@ -203,10 +222,11 @@ def metadataFromHTSfileOfFiles(fof,**kwargs):
         attr_dict['group']=grp
         attr_dict['limsID']=limsId
         attr_dict['Date']=htsObj.date()
-        attr_dict['flowcell_suffix']=htsObj.flowCells()
+        attr_dict['flowcell']=htsObj.flowCell()
+        attr_dict['flowcell_suffix']=htsObj.flowCellsuffix()
         attr_dict['target']=htsObj.target()
         attr_dict['sequencer']=htsObj.sequencers()
-        attr_dict['bwa_version']=htsObj.bwa_version()
+        attr_dict['aligner_version']=htsObj.aligner_version()
         attr_dict['read_len']=htsObj.readLen()
         attr_dict['sample_sex']=htsObj.sex()
         attr_dict['centers']=htsObj.centers()
@@ -214,12 +234,11 @@ def metadataFromHTSfileOfFiles(fof,**kwargs):
         attr_dict['samples']=htsObj.samples()
         attr_dict['contigs']=htsObj.contigs()
         attr_dict['assembly']=htsObj.assembly()
-
         json.append(attr_dict)        
         f.close()
     paths.close()
     df=pd.DataFrame.from_dict(json, orient='columns')
-    df=df[['count','group','limsID','Date','flowcell_suffix','target','sequencer','bwa_version','read_len','sample_sex','centers','libraries','samples','assembly']]
+    df=df[['count','group','limsID','Date','flowcell','flowcell_suffix','target','sequencer','aligner_version','read_len','sample_sex','centers','libraries','samples','assembly']]
     return (json,df)
 
 def main():
@@ -268,7 +287,7 @@ def main():
 
 if __name__ == '__main__':
 #	main()
-	try:
-		main()
-	except OSError:
-		sys.stdout.write("RUN ERROR: Are the arguments correct? Try runnning metadataFromHTSfileOfFiles.py  -h\n")
+    try:
+        main()
+    except OSError:
+        sys.stdout.write("RUN ERROR: Are the arguments correct? Try runnning metadataFromHTSfileOfFiles.py  -h\n")
