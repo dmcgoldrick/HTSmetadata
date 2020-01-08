@@ -16,7 +16,7 @@ python metadataFromHTSfileOfFiles.py -i ~/tmp/paths.txt -t ~/tmp/test.tsv -j ~/t
      -t [T]      
      output a tsv metadata File: defaults to stdout.
      -j [J]      
-     output a json metadata File: defaults to nothing output; an error if -o is also specified for stdout (no -oj or -o -j allowed); -o <file> -j <file> is also ok.
+     output a json metadata File: defaults to nothing output; an error if -t is also specified to stdout (no combined -tj or -t -j without a file value is allowed); -o <file> -j <file> is ok and makes two files - one tsv and one json.
 # Requirements:
 ## python 3+
 numpy,scipy,pysam,pandas,os,re,math,datetime,sys,argparse,types
